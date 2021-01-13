@@ -1,39 +1,31 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
+
 import {ThemeContext} from '../contexts/ThemeContext';
-import {AuthContext} from '../contexts/AuthContext';
+
+import {AuthContext} from '../contexts//AuthContext';
+
+const Navbar = () => {
 
 
-class Navbar extends Component {
-    
-    render() {
-        return (
-            <AuthContext.Consumer>{(authContext) => (
+    const {isLightTheme, light, dark} = useContext(ThemeContext);
+    const {isAuthenticated, toggleAuth} = useContext(AuthContext);
 
-                <ThemeContext.Consumer>{(themeContext) => {
+    const theme = isLightTheme ? light : dark;
 
-                    const {isLightTheme, light, dark} = themeContext;
-                    const {isAuthenticated, toggleAuth} = authContext;
-                    const theme = isLightTheme ? light : dark;
+    return (
+        <nav style = {{background : theme.ui, color: theme.syntax}}>
+            <h1>Context App</h1> 
 
-                    return (
-                        <nav style = {{background : theme.ui, color: theme.syntax}}>
-                            <h1>Context App</h1> 
+            <div onClick = {toggleAuth}>
+                {isAuthenticated ? 'losseg in' : 'logged out'}
+            </div>
+            <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li>Contact</li>
+            </ul>
+        </nav>
+    )
 
-                            <div onClick = {toggleAuth}>
-                                {isAuthenticated ? 'losseg in' : 'logged out'}
-                            </div>
-                            <ul>
-                                <li>Home</li>
-                                <li>About</li>
-                                <li>Contact</li>
-                            </ul>
-                        </nav>
-                    )
-                }}</ThemeContext.Consumer>
-            )} 
-            </AuthContext.Consumer>
-        );
-    }
 }
-
 export default Navbar;
