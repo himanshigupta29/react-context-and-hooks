@@ -14,7 +14,7 @@ export const BookContext = createContext();
 
 
     return (
-        <BookContext.Provider value={[...books]}>
+        <BookContext.Provider value={{books}}>
             {props.children}
         </BookContext.Provider>
     );
